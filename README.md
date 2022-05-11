@@ -10,9 +10,6 @@ An easy yet powerful notification bundle for Symfony
 <a href="https://packagist.org/packages/ineph/notification-bundle"><img src="https://poser.pugx.org/mgilet/notification-bundle/license" alt="License"></a>
 </p>
 
-<p align="center">
-<a href="https://insight.sensiolabs.com/projects/697abbcc-4b15-418a-a6c9-e662787fed48"><img src="https://insight.sensiolabs.com/projects/697abbcc-4b15-418a-a6c9-e662787fed48/big.png" alt="SensioLabsInsight"></a>
-</p>
 
 <p align="center"><img src="http://i.imgur.com/07OcF6c.gif" alt="mgilet/notificationBundle"></p>
 
@@ -47,10 +44,10 @@ If you use a custom Notification entitiy you must remove the `resolve_target_ent
 
 After adding the customized notification class as in #39 just add a configuration file
 
-`config/packages/mgilet_notification.yaml`
+`config/packages/ineph_notification.yaml`
 
 ```yaml
-mgilet_notification:
+ineph_notification:
   notification_class: App\Entity\MyCustomNotification
 ```
 
