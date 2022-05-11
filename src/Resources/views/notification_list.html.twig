@@ -1,0 +1,19 @@
+{% for n in notificationList %}
+    <li>
+        <a href="{{ n.notification.link }}">
+            <div class="timeline-panel">
+                <div class="media mr-2 media-info">
+                    {{ n.notification.subject|slice(0,2)|upper }}
+                </div>
+                <div class="media-body">
+                    <h6 class="mb-1">{{ n.notification.subject }}</h6>
+                    <small class="d-block" data-ago="{{ n.notification.date|date('U') }}"></small>
+                </div>
+            </div>
+        </a>
+    </li>
+{% else %}
+    <li>
+        <div class="timeline-panel">Pas de nouvelles nontifications</div>
+    </li>
+{% endfor %}

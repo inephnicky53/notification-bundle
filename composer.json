@@ -1,0 +1,26 @@
+{
+  "name" : "ineph/notification-bundle",
+  "license": "MIT",
+  "description" : "A simple Symfony 5 bundle for user notifications",
+  "type" : "symfony-bundle",
+  "authors" : [{
+    "name" : "Nephtali Nlandu",
+    "email" : "nepthalinlandu@gmail.com"
+  }],
+  "keywords" : [
+    "symfony notification bundle simple"
+  ],
+  "require" : {
+    "symfony/framework-bundle": "^4.0 || ^5.0",
+    "twig/twig": "*",
+    "doctrine/doctrine-bundle": "*"
+  },
+  "autoload" : {
+    "psr-4": { "Ineph\\NotificationBundle\\": "src" }
+  },
+  "extra" : {
+    "branch-alias" : {
+      "dev-master" : "3.0-dev"
+    }
+  }
+}

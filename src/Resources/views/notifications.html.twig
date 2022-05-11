@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Liste de notifications</h4>
+                    {% if notificationList|length > 0 %}
+                        <form action="{{ ineph_notification_generate_path('notification_mark_all_as_seen', notificationList|first.notifiableEntity) }}"
+                              method="post">
+                            <button type="submit" class="btn btn-sm btn-primary">Marquer tous comme lue</button>
+                        </form>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example3" class="display" style="min-width: 845px">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Titre</th>
+                                <th>Message</th>
+                                <th>Etat</th>
+                                <th>Temps</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in notificationList %}
+                                <tr>
+                                    <td><img class="rounded-circle" width="35" src="{{ asset('img/logo.png') }}" alt="">
+                                    </td>
+                                    <td>
+                                        <a href="{{ item.notification.link }}">
+                                            <b>{{ item.notification.subject }}</b>
+                                        </a>
+                                    </td>
+                                    <td>{{ item.notification.message }}</td>
+                                    <td>
+                                        {% if item.seen %}
+                                            <span class="badge badge-sm badge-success">lue</span>
+                                        {% else %}
+                                            <span class="badge badge-sm badge-danger">non lue</span>
+                                        {% endif %}
+                                    </td>
+                                    <td><span data-ago="{{ item.notification.date|date('U') }}"></span></td>
+                                    <td>
+                                        <div class="d-flex">
+                                            {% if not item.seen %}
+                                                <form action="{{ ineph_notification_generate_path('notification_mark_as_seen', item.notifiableEntity, item.notification) }}"
+                                                      method="post">
+                                                    <button type="submit"
+                                                            class="btn btn-primary shadow btn-xs sharp mr-1"
+                                                            title="Marquer comme vue">
+                                                        <i class="fa fa-eye"></i>
+                                                    </button>
+                                                </form>
+                                            {% else %}
+                                                <form action="{{ ineph_notification_generate_path('notification_mark_as_unseen', item.notifiableEntity, item.notification) }}"
+                                                      method="post">
+                                                    <button type="submit"
+                                                            class="btn btn-warning shadow btn-xs sharp mr-1"
+                                                            title="Marquer comme non vue">
+                                                        <i class="fa fa-eye-slash"></i>
+                                                    </button>
+                                                </form>
+                                            {% endif %}
+                                            <form action="{{ ineph_notification_generate_path('notification_remove', item.notifiableEntity, item.notification) }}"
+                                                  method="post">
+                                                <button type="submit" class="btn btn-danger shadow btn-xs sharp"
+                                                        title="Marquer comme non vue">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

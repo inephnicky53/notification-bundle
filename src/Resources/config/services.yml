@@ -1,0 +1,30 @@
+services:
+    Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
+    Ineph\NotificationBundle\Manager\NotificationManager: '@ineph.notification'
+
+    Ineph\NotificationBundle\Controller\NotificationController:
+        tags: [ 'controller.service_arguments' ]
+        calls:
+            - [setContainer, ['@service_container']]
+
+
+    ineph.notification:
+        class: Ineph\NotificationBundle\Manager\NotificationManager
+        arguments: ["@service_container", '@ineph.notifiable_discovery']
+        public: true,
+
+
+
+    ineph.notifiable_discovery:
+        class: Ineph\NotificationBundle\NotifiableDiscovery
+        arguments: [ '@doctrine.orm.entity_manager', '@annotation_reader']
+        public: false
+
+    ineph.twig_extension:
+        class: Ineph\NotificationBundle\Twig\NotificationExtension
+        arguments: ['@ineph.notification', '@security.token_storage', '@twig', '@router']
+        public: false
+        tags:
+            - { name: twig.extension }
+    #ineph.notification_class: Ineph\NotificationBundle\Entity\Notification
+
